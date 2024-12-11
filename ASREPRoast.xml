@@ -1,0 +1,12 @@
+<!-- This rule detects ASREPRoast attacks using windows security event on the domain controller -->
+<group name="security_event, windows,">
+  <rule id="110009" level="12">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^4768$</field>
+    <field name="win.eventdata.TicketOptions" type="pcre2">0x50800000</field>
+    <field name="win.eventdata.TicketEncryptionType" type="pcre2">0x12</field>
+    <field name="win.eventdata.PreAuthType" type="pcre2">0</field>
+    <options>no_full_log</options>
+    <description>Possible ASREPRoast attack</description>
+  </rule>
+</group>
