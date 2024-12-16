@@ -11,7 +11,7 @@
     <description>Possible ASREPRoast attack</description>
   </rule>
   
-  !-- This rule detects ASREPRoast attacks using windows security event on the domain controller -->
+  <!-- This rule detects ASREPRoast attacks using windows security event on the domain controller -->
   <rule id="110010" level="12">
     <if_sid>60103</if_sid>
     <field name="win.system.eventID">^4768$</field>
