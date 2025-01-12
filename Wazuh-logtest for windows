@@ -1,0 +1,45 @@
+To test windows events on wazuh-logtest
+
+1. edit rule  600 on 0575-win-base_rules.xml file
+# nano /var/ossec/ruleset/rules/0575-win-base_rules.xml
+
+set decode as jason and desable category ossec
+
+<rule id="60000" level="0">
+    <!--category>ossec</category>
+    <decoded_as>windows_eventchannel</decoded_as-->
+    <decoded_as>json</decoded_as>
+    <field name="win.system.providerName">\.+</field>
+    <options>no_full_log</options>
+    <description>Group of windows rules.</description>
+</rule>
+
+2. enable log all on wazuh config file
+# nano /var/ossec/etc/ossec.conf 
+
+set logall yes
+
+ossec_config>
+  <global>
+    <jsonout_output>yes</jsonout_output>
+    <alerts_log>yes</alerts_log>
+    <logall>yes</logall>
+    <logall_json>no</logall_json>
+    <email_notification>no</email_notification>
+    <smtp_server>smtp.example.wazuh.com</smtp_server>
+    <email_from>wazuh@example.wazuh.com</email_from>
+    <email_to>recipient@example.wazuh.com</email_to>
+    <email_maxperhour>12</email_maxperhour>
+    <email_log_source>alerts.log</email_log_source>
+    <agents_disconnection_time>10m</agents_disconnection_time>
+    <agents_disconnection_alert_time>0</agents_disconnection_alert_time>
+    <update_check>yes</update_check>
+  </global>
+
+3. restat wazuh-manager
+# syystemctl restart wazuh-manager
+
+4. after the end of test return the values as default and restart wazuh-manager
+
+
+
