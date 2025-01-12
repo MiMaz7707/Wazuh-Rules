@@ -1,0 +1,119 @@
+# Troubleshooting Wazuh Rule Not Triggering
+
+If your custom Wazuh rule is not triggering, follow these steps to troubleshoot and refine the rule.
+
+---
+
+## 1. Verify the Rule File
+Ensure your rule is correctly added to the Wazuh rules file (e.g., `/var/ossec/etc/rules/local_rules.xml`). Example:
+
+```xml
+<group name="custom,">
+  <rule id="110006" level="12">
+    <if_sid>67027</if_sid>
+    <field name="win.eventdata.newProcessName">C:\\Windows\\System32\\ntdsutil.exe</field>
+    <description>Possible NTDS.dit file extraction using ntdsutil.exe</description>
+  </rule>
+</group>
+```
+
+Validate the configuration:
+```bash
+/var/ossec/bin/wazuh-control validate-config
+```
+
+Fix any syntax errors reported by the validation tool.
+
+---
+
+## 2. Restart Wazuh
+Reload the Wazuh manager to apply changes:
+```bash
+/var/ossec/bin/wazuh-control restart
+```
+
+---
+
+## 3. Test with `ossec-logtest`
+Run the test with the following command:
+
+```bash
+/var/ossec/bin/ossec-logtest
+```
+
+Provide the test log as input to see if the rule is triggered.
+
+---
+
+## 4. Debugging the Rule
+If the rule still doesn't trigger:
+
+### a. Debug Rule Matching
+
+Simplify the rule to trigger more broadly. Example:
+
+```xml
+<rule id="110006" level="12">
+  <if_sid>67027</if_sid>
+  <description>Debugging NTDSUTIL detection</description>
+</rule>
+```
+
+This will match any log that triggers `67027`. If this works, refine the `<field>` conditions.
+
+### b. Add Debug Fields
+Check if the `win.eventdata.newProcessName` field exists in the log:
+
+```xml
+<rule id="110006" level="12">
+  <if_sid>67027</if_sid>
+  <field name="win.eventdata.newProcessName" type="exists"></field>
+  <description>Debugging NTDSUTIL detection: New Process Name exists</description>
+</rule>
+```
+
+If this triggers, refine the field to match the expected value.
+
+### c. Use Regex Matching
+If exact string matching isn't working, use `pcre2` for flexibility:
+
+```xml
+<rule id="110006" level="12">
+  <if_sid>67027</if_sid>
+  <field name="win.eventdata.newProcessName" type="pcre2">C:\\Windows\\System32\\ntdsutil\.exe</field>
+  <description>Debugging NTDSUTIL detection: PCRE matching</description>
+</rule>
+```
+
+### d. Verify Decoder
+Ensure the log is being decoded correctly by Wazuh. Check the decoder for `67027` in `/var/ossec/etc/decoders`. Use `ossec-logtest` to confirm the decoded fields.
+
+---
+
+## 5. Check Logs and Alerts
+
+### a. Wazuh Logs
+Check `/var/ossec/logs/ossec.log` for errors or rule-matching issues.
+
+### b. Alert Logs
+Review the alerts to see if the rule triggered:
+
+- `/var/ossec/logs/alerts/alerts.json`
+- `/var/ossec/logs/alerts/alerts.log`
+
+---
+
+## 6. Refine and Test Again
+After identifying the issue, refine the rule and re-test using the steps above.
+
+---
+
+## Example Adjusted Rule
+If decoding is correct and fields match:
+
+```xml
+<rule id="110006" level="12">
+  <if_sid>67027</if_sid>
+  <field name="win.eventdata.newProcessName">C:\\Windows\\System32\\ntdsutil.exe</field>
+  <description>Possible NTDS.dit file extraction using ntdsutil.exe</description>
+</rule>
