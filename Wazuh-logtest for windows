@@ -39,6 +39,92 @@ ossec_config>
 3. restat wazuh-manager
 # syystemctl restart wazuh-manager
 
+Exemple 
+
+025 Jan 12 03:53:44 (DC01) any->EventChannel {"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-A5BA-3E3B0328C30D}","eventID":"4688","version":"2","level":"0","task":"13312","opcode":"0","keywords":"0x8020000000000000","systemTime":"2025-01-12T03:53:43.612523100Z","eventRecordID":"275629","processID":"4","threadID":"32","channel":"Security","computer":"DC01.mylab.local","severityValue":"AUDIT_SUCCESS","message":"\"A new process has been created.\r\n\r\nCreator Subject:\r\n\tSecurity ID:\t\tS-1-5-21-2730814977-3337534754-1279076401-500\r\n\tAccount Name:\t\tadministrator\r\n\tAccount Domain:\t\tMYLAB\r\n\tLogon ID:\t\t0x2D0836\r\n\r\nTarget Subject:\r\n\tSecurity ID:\t\tS-1-0-0\r\n\tAccount Name:\t\t-\r\n\tAccount Domain:\t\t-\r\n\tLogon ID:\t\t0x0\r\n\r\nProcess Information:\r\n\tNew Process ID:\t\t0x1a60\r\n\tNew Process Name:\tC:\\Windows\\System32\\ntdsutil.exe\r\n\tToken Elevation Type:\t%%1936\r\n\tMandatory Label:\t\tS-1-16-12288\r\n\tCreator Process ID:\t0x4bc\r\n\tCreator Process Name:\tC:\\Windows\\System32\\cmd.exe\r\n\tProcess Command Line:\t\r\n\r\nToken Elevation Type indicates the type of token that was assigned to the new process in accordance with User Account Control policy.\r\n\r\nType 1 is a full token with no privileges removed or groups disabled.  A full token is only used if User Account Control is disabled or if the user is the built-in Administrator account or a service account.\r\n\r\nType 2 is an elevated token with no privileges removed or groups disabled.  An elevated token is used when User Account Control is enabled and the user chooses to start the program using Run as administrator.  An elevated token is also used when an application is configured to always require administrative privilege or to always require maximum privilege, and the user is a member of the Administrators group.\r\n\r\nType 3 is a limited token with administrative privileges removed and administrative groups disabled.  The limited token is used when User Account Control is enabled, the application does not require administrative privilege, and the user does not choose to start the program using Run as administrator.\""},"eventdata":{"subjectUserSid":"S-1-5-21-2730814977-3337534754-1279076401-500","subjectUserName":"administrator","subjectDomainName":"MYLAB","subjectLogonId":"0x2d0836","newProcessId":"0x1a60","newProcessName":"C:\\\\Windows\\\\System32\\\\ntdsutil.exe","tokenElevationType":"%%1936","processId":"0x4bc","targetUserSid":"S-1-0-0","targetLogonId":"0x0","parentProcessName":"C:\\\\Windows\\\\System32\\\\cmd.exe","mandatoryLabel":"S-1-16-12288"}}}
+2025 Jan 12 03:53:44 (DC01) any->EventChannel {"win":{"system":{"providerName":"Microsoft-Windows-Sysmon","providerGuid":"{5770385F-C22A-43E0-BF4C-06F5698FFBD9}","eventID":"1","version":"5","level":"4","task":"1","opcode":"0","keywords":"0x8000000000000000","systemTime":"2025-01-12T03:53:43.619689100Z","eventRecordID":"25429","processID":"3116","threadID":"3408","channel":"Microsoft-Windows-Sysmon/Operational","computer":"DC01.mylab.local","severityValue":"INFORMATION","message":"\"Process Create:\r\nRuleName: technique_id=T1059,technique_name=Command-Line Interface\r\nUtcTime: 2025-01-12 03:53:43.612\r\nProcessGuid: {621359CC-3CC7-6783-5602-000000003900}\r\nProcessId: 6752\r\nImage: C:\\Windows\\System32\\ntdsutil.exe\r\nFileVersion: 10.0.14393.0 (rs1_release.160715-1616)\r\nDescription: NT5DS\r\nProduct: Microsoft® Windows® Operating System\r\nCompany: Microsoft Corporation\r\nOriginalFileName: ntdsutil.exe\r\nCommandLine: ntdsutil\r\nCurrentDirectory: C:\\Users\\Administrator\\\r\nUser: MYLAB\\Administrator\r\nLogonGuid: {621359CC-18FF-6783-3608-2D0000000000}\r\nLogonId: 0x2D0836\r\nTerminalSessionId: 1\r\nIntegrityLevel: High\r\nHashes: SHA1=3D1029A8C9608A5A841630F0CDE00E3175A17F50,MD5=902CA35F6C9FFD6164EC8E830B88B509,SHA256=3B5C59054BCDC4F677E770AC6EAF92D8852F34B5044546BDD7DE2392A926577E,IMPHASH=6F40DB571872259926EFD803DCAD2486\r\nParentProcessGuid: {621359CC-1917-6783-3701-000000003900}\r\nParentProcessId: 1212\r\nParentImage: C:\\Windows\\System32\\cmd.exe\r\nParentCommandLine: \"C:\\Windows\\system32\\cmd.exe\" \r\nParentUser: MYLAB\\Administrator\""},"eventdata":{"ruleName":"technique_id=T1059,technique_name=Command-Line Interface","utcTime":"2025-01-12 03:53:43.612","processGuid":"{621359CC-3CC7-6783-5602-000000003900}","processId":"6752","image":"C:\\\\Windows\\\\System32\\\\ntdsutil.exe","fileVersion":"10.0.14393.0 (rs1_release.160715-1616)","description":"NT5DS","product":"Microsoft® Windows® Operating System","company":"Microsoft Corporation","originalFileName":"ntdsutil.exe","commandLine":"ntdsutil","currentDirectory":"C:\\\\Users\\\\Administrator\\\\","user":"MYLAB\\\\Administrator","logonGuid":"{621359CC-18FF-6783-3608-2D0000000000}","logonId":"0x2d0836","terminalSessionId":"1","integrityLevel":"High","hashes":"SHA1=3D1029A8C9608A5A841630F0CDE00E3175A17F50,MD5=902CA35F6C9FFD6164EC8E830B88B509,SHA256=3B5C59054BCDC4F677E770AC6EAF92D8852F34B5044546BDD7DE2392A926577E,IMPHASH=6F40DB571872259926EFD803DCAD2486","parentProcessGuid":"{621359CC-1917-6783-3701-000000003900}","parentProcessId":"1212","parentImage":"C:\\\\Windows\\\\System32\\\\cmd.exe","parentCommandLine":"\\\"C:\\\\Windows\\\\system32\\\\cmd.exe\\\"","parentUser":"MYLAB\\\\Administrator"}}}
+
+
+# bin/wazuh-logtest
+Starting wazuh-logtest v4.9.1
+Type one log per line
+
+{"win":{"system":{"providerName":"Microsoft-Windows-Security-Auditing","providerGuid":"{54849625-5478-4994-A5BA-3E3B0328C30D}","eventID":"4688","version":"2","level":"0","task":"13312","opcode":"0","keywords":"0x8020000000000000","systemTime":"2025-01-12T03:53:43.612523100Z","eventRecordID":"275629","processID":"4","threadID":"32","channel":"Security","computer":"DC01.mylab.local","severityValue":"AUDIT_SUCCESS","message":"\"A new process has been created.\r\n\r\nCreator Subject:\r\n\tSecurity ID:\t\tS-1-5-21-2730814977-3337534754-1279076401-500\r\n\tAccount Name:\t\tadministrator\r\n\tAccount Domain:\t\tMYLAB\r\n\tLogon ID:\t\t0x2D0836\r\n\r\nTarget Subject:\r\n\tSecurity ID:\t\tS-1-0-0\r\n\tAccount Name:\t\t-\r\n\tAccount Domain:\t\t-\r\n\tLogon ID:\t\t0x0\r\n\r\nProcess Information:\r\n\tNew Process ID:\t\t0x1a60\r\n\tNew Process Name:\tC:\\Windows\\System32\\ntdsutil.exe\r\n\tToken Elevation Type:\t%%1936\r\n\tMandatory Label:\t\tS-1-16-12288\r\n\tCreator Process ID:\t0x4bc\r\n\tCreator Process Name:\tC:\\Windows\\System32\\cmd.exe\r\n\tProcess Command Line:\t\r\n\r\nToken Elevation Type indicates the type of token that was assigned to the new process in accordance with User Account Control policy.\r\n\r\nType 1 is a full token with no privileges removed or groups disabled.  A full token is only used if User Account Control is disabled or if the user is the built-in Administrator account or a service account.\r\n\r\nType 2 is an elevated token with no privileges removed or groups disabled.  An elevated token is used when User Account Control is enabled and the user chooses to start the program using Run as administrator.  An elevated token is also used when an application is configured to always require administrative privilege or to always require maximum privilege, and the user is a member of the Administrators group.\r\n\r\nType 3 is a limited token with administrative privileges removed and administrative groups disabled.  The limited token is used when User Account Control is enabled, the application does not require administrative privilege, and the user does not choose to start the program using Run as administrator.\""},"eventdata":{"subjectUserSid":"S-1-5-21-2730814977-3337534754-1279076401-500","subjectUserName":"administrator","subjectDomainName":"MYLAB","subjectLogonId":"0x2d0836","newProcessId":"0x1a60","newProcessName":"C:\\\\Windows\\\\System32\\\\ntdsutil.exe","tokenElevationType":"%%1936","processId":"0x4bc","targetUserSid":"S-1-0-0","targetLogonId":"0x0","parentProcessName":"C:\\\\Windows\\\\System32\\\\cmd.exe","mandatoryLabel":"S-1-16-12288"}}}
+
+**Phase 1: Completed pre-decoding.
+
+**Phase 2: Completed decoding.
+        name: 'json'
+        win.eventdata.mandatoryLabel: 'S-1-16-12288'
+        win.eventdata.newProcessId: '0x1a60'
+        win.eventdata.newProcessName: 'C:\\Windows\\System32\\ntdsutil.exe'
+        win.eventdata.parentProcessName: 'C:\\Windows\\System32\\cmd.exe'
+        win.eventdata.processId: '0x4bc'
+        win.eventdata.subjectDomainName: 'MYLAB'
+        win.eventdata.subjectLogonId: '0x2d0836'
+        win.eventdata.subjectUserName: 'administrator'
+        win.eventdata.subjectUserSid: 'S-1-5-21-2730814977-3337534754-1279076401-500'
+        win.eventdata.targetLogonId: '0x0'
+        win.eventdata.targetUserSid: 'S-1-0-0'
+        win.eventdata.tokenElevationType: '%%1936'
+        win.system.channel: 'Security'
+        win.system.computer: 'DC01.mylab.local'
+        win.system.eventID: '4688'
+        win.system.eventRecordID: '275629'
+        win.system.keywords: '0x8020000000000000'
+        win.system.level: '0'
+        win.system.message: '"A new process has been created.
+
+Creator Subject:
+        Security ID:            S-1-5-21-2730814977-3337534754-1279076401-500
+        Account Name:           administrator
+        Account Domain:         MYLAB
+        Logon ID:               0x2D0836
+
+Target Subject:
+        Security ID:            S-1-0-0
+        Account Name:           -
+        Account Domain:         -
+        Logon ID:               0x0
+
+Process Information:
+        New Process ID:         0x1a60
+        New Process Name:       C:\Windows\System32\ntdsutil.exe
+        Token Elevation Type:   %%1936
+        Mandatory Label:                S-1-16-12288
+        Creator Process ID:     0x4bc
+        Creator Process Name:   C:\Windows\System32\cmd.exe
+        Process Command Line:
+
+Token Elevation Type indicates the type of token that was assigned to the new process in accordance with User Account Control policy.
+
+Type 1 is a full token with no privileges removed or groups disabled.  A full token is only used if User Account Control is disabled or if the user is the built-in Administrator account or a service account.
+
+Type 2 is an elevated token with no privileges removed or groups disabled.  An elevated token is used when User Account Control is enabled and the user chooses to start the program using Run as administrator.  An elevated token is also used when an application is configured to always require administrative privilege or to always require maximum privilege, and the user is a member of the Administrators group.
+
+Type 3 is a limited token with administrative privileges removed and administrative groups disabled.  The limited token is used when User Account Control is enabled, the application does not require administrative privilege, and the user does not choose to start the program using Run as administrator."'
+        win.system.opcode: '0'
+        win.system.processID: '4'
+        win.system.providerGuid: '{54849625-5478-4994-A5BA-3E3B0328C30D}'
+        win.system.providerName: 'Microsoft-Windows-Security-Auditing'
+        win.system.severityValue: 'AUDIT_SUCCESS'
+        win.system.systemTime: '2025-01-12T03:53:43.612523100Z'
+        win.system.task: '13312'
+        win.system.threadID: '32'
+        win.system.version: '2'
+
+**Phase 3: Completed filtering (rules).
+        id: '67027'
+        level: '3'
+        description: 'A process was created.'
+        groups: '['windows', ' WEF']'
+        firedtimes: '1'
+        mail: 'False'
+**Alert to be generated.
+
+
+
+
 4. after the end of test return the values as default and restart wazuh-manager
 
 
