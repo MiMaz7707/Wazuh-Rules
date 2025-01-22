@@ -1,0 +1,24 @@
+<group name="security_event, windows,">
+  
+  <!-- This rule detects NTDS.dit file extraction using a sysmon event captured on the domain controller -->
+  <rule id="110006" level="12">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.commandLine" type="pcre2">ntdsutil</field>
+    <description>Possible NTDS.dit file extraction using ntdsutil.exe</description>
+  </rule>
+
+  <!-- This rule detects NTDS.dit file extraction using a sysmon event captured on the domain controller -->
+  <rule id="110007" level="12">
+    <if_sid>67027</if_sid>
+    <field name="win.eventdata.newProcessName" type="pcre2">ntdsutil</field>
+    <description>Possible NTDS.dit file extraction using ntdsutil.exe</description>
+  </rule>
+
+  <!-- This rule detects NTDS.dit file extraction using a sysmon event captured on the domain controller -->
+  <rule id="110008" level="12">
+    <if_sid>60103</if_sid>
+        <field name="win.eventdata.ProcessName" type="pcre2">ntdsutil</field>
+    <description>Possible NTDS.dit file extraction using ntdsutil.exe</description>
+  </rule>
+
+</group>
