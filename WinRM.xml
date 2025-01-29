@@ -1,0 +1,8 @@
+<group name="security_event, windows,">
+  <!-- This rule will increase WinRM usage detection level to 15 -->
+    <rule id="110015" level="15">
+    <if_sid>92110</if_sid>
+    <options>no_full_log</options>
+   <description>Detected WinRM activity from $(win.eventdata.sourceIp) to $(win.eventdata.destinationIp)</description>
+ </rule>
+</group>
