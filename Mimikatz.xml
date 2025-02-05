@@ -1,0 +1,10 @@
+<group name="security_event, windows,">
+  <!-- This rule detects credential dumping when the command sekurlsa::logonpasswords is run on mimikatz -->
+  <rule id="110011" level="15">
+    <!--if_sid>61612</if_sid-->
+    <if_sid>92900</if_sid>
+    <field name="win.eventdata.TargetImage" type="pcre2">(?i)\\\\system32\\\\lsass.exe</field>
+    <field name="win.eventdata.GrantedAccess" type="pcre2">(?i)0x1010</field>
+    <description>Possible credential dumping using mimikatz</description>
+  </rule>
+</group>
