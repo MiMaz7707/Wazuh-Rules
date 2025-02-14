@@ -1,0 +1,19 @@
+<group name="security_event, windows,">
+  <!-- This rule detects RDP Restricted Admin Mode logon -->
+  <rule id="110016" level="15">
+    <if_sid>92653</if_sid>
+    <field name="win.system.eventID">4624</field>
+    <field name="win.eventdata.logonType">10</field> <!-- RDP logon -->
+    <field name="win.eventdata.restrictedAdminMode">%%1842</field>
+    <description>RDP Restricted Admin Mode Logon Detected from $(win.eventdata.sourceIp) to $(win.eventdata.destinationIp)</description>
+  </rule>
+
+  <!-- This rule detects Network-based RDP Restricted Admin Mode logon -->
+  <rule id="10017" level="15">
+    <if_sid>92653</if_sid>
+    <field name="win.system.eventID">4624</field>
+    <field name="win.eventdata.logonType">3</field> <!-- Network logon -->
+    <field name="win.eventdata.restrictedAdminMode">%%1842</field>
+    <description>Network-based RDP Restricted Admin Mode Logon Detected from $(win.eventdata.sourceIp) to $(win.eventdata.destinationIp)</description>
+  </rule>
+</group>
